@@ -284,7 +284,17 @@ with tab2:
             barmode="stack",
             height=400,
         )
-        fig_stack.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02))
+        fig_stack.update_layout(
+            legend=dict(
+                orientation="v",
+                yanchor="middle",
+                y=0.5,
+                xanchor="left",
+                x=1.02,
+                font=dict(size=11),
+            ),
+            margin=dict(r=160),
+        )
         st.plotly_chart(fig_stack, use_container_width=True)
 
     with c2:
@@ -481,6 +491,20 @@ with tab3:
             ),
         ).add_to(coop_cluster)
     coop_cluster.add_to(m_coop)
+    legend_coop = """
+    <div style="position:fixed;bottom:30px;left:30px;z-index:1000;background:white;
+         padding:10px 14px;border-radius:8px;box-shadow:2px 2px 6px rgba(0,0,0,.3);font-size:12px;">
+    <b>Légende</b><br>
+    <span style="color:#3F51B5">●</span> Coopérative agricole<br>
+    <hr style="margin:5px 0">
+    <i style="font-size:11px;color:#555;">Les cercles numérotés regroupent<br>
+    plusieurs coopératives proches.<br>
+    La couleur indique le nombre :</i><br>
+    <span style="color:#6ab187">●</span> Peu de coopératives (&lt; 10)<br>
+    <span style="color:#f0c228">●</span> Nombre moyen (10 - 100)<br>
+    <span style="color:#e8622a">●</span> Beaucoup (&gt; 100)
+    </div>"""
+    m_coop.get_root().html.add_child(folium.Element(legend_coop))
     st_folium(m_coop, width="100%", height=400, returned_objects=[])
 
 # ==============================================================================
@@ -589,6 +613,21 @@ with tab4:
         ).add_to(zaap_champ_cluster)
     zaap_champ_cluster.add_to(m_zaap)
     folium.LayerControl().add_to(m_zaap)
+    legend_zaap = """
+    <div style="position:fixed;bottom:30px;left:30px;z-index:1000;background:white;
+         padding:10px 14px;border-radius:8px;box-shadow:2px 2px 6px rgba(0,0,0,.3);font-size:12px;">
+    <b>Légende</b><br>
+    <span style="color:#795548">■</span> Périmètre ZAAP<br>
+    <span style="color:#607D8B">●</span> Champ individuel<br>
+    <hr style="margin:5px 0">
+    <i style="font-size:11px;color:#555;">Les cercles numérotés regroupent<br>
+    plusieurs champs proches.<br>
+    La couleur indique le nombre :</i><br>
+    <span style="color:#6ab187">●</span> Peu de champs (&lt; 10)<br>
+    <span style="color:#f0c228">●</span> Nombre moyen (10 - 100)<br>
+    <span style="color:#e8622a">●</span> Beaucoup (&gt; 100)
+    </div>"""
+    m_zaap.get_root().html.add_child(folium.Element(legend_zaap))
     st_folium(m_zaap, width="100%", height=450, returned_objects=[])
 
 # ==============================================================================
@@ -716,6 +755,14 @@ with tab5:
     pep_group.add_to(m_serv)
 
     folium.LayerControl().add_to(m_serv)
+    legend_serv = """
+    <div style="position:fixed;bottom:30px;left:30px;z-index:1000;background:white;
+         padding:10px 14px;border-radius:8px;box-shadow:2px 2px 6px rgba(0,0,0,.3);font-size:12px;">
+    <b>Légende</b><br>
+    <span style="color:#009688">●</span> Marché agricole<br>
+    <span style="color:#FF9800">●</span> Pépinière agricole
+    </div>"""
+    m_serv.get_root().html.add_child(folium.Element(legend_serv))
     st_folium(m_serv, width="100%", height=450, returned_objects=[])
 
 # --- Footer -------------------------------------------------------------------
